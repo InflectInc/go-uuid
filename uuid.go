@@ -143,6 +143,16 @@ func V4() (UUID, error) {
 	return u, nil
 }
 
+// MustV4 creates a new random UUID from crypto/rand.Read()
+// panic's on failure
+func MustV4() UUID {
+	u, err := V4()
+	if err != nil {
+		panic(err)
+	}
+	return u
+}
+
 // FromString reads a UUID into a new UUID instance.
 func FromString(str string) (UUID, error) {
 	u := UUID{}
@@ -318,5 +328,5 @@ func (u UUID) String() string {
 
 // Version returns the UUID version.
 func (u UUID) Version() int {
-	return int(u[6]>>4)
+	return int(u[6] >> 4)
 }
